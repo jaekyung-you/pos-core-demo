@@ -1,0 +1,32 @@
+# Xcode
+*.xcuserstate
+*.xcbkptlist
+xcuserdata/
+DerivedData/
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+
+# Tuist
+POSCoreDemo/Derived/
+POSCoreDemo/*.xcodeproj
+POSCoreDemo/*.xcworkspace
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output/
+fastlane/build/
+
+# Ruby
+.bundle/
+vendor/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# gstack
+.gstack/

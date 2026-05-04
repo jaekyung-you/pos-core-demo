@@ -1,0 +1,8 @@
+framework module "POSCore" {
+	header "ref.h"
+    header "Pos.objc.h"
+    header "Universe.objc.h"
+    header "POSCore.h"
+
+    export *
+}
