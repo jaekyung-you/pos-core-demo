@@ -1,0 +1,62 @@
+default_platform(:ios)
+
+WORKSPACE   = "POSCoreDemo.xcworkspace"
+SCHEME      = "POSCoreDemo"
+TEST_SCHEME = "POSImplementationTests"
+SIMULATOR   = "platform=iOS Simulator,name=iPad Air 13-inch (M4)"
+TUIST       = File.expand_path("~/.local/share/mise/installs/tuist/4.188.0/tuist")
+
+platform :ios do
+
+  # ── Generate ──────────────────────────────────────────────────
+  # Regenerates the Xcode project from Project.swift via Tuist.
+  # Run this after adding new source files or changing Project.swift.
+  lane :generate do
+    sh "#{TUIST} generate", log: false
+    UI.success "Xcode project regenerated"
+  end
+
+  # ── Build ─────────────────────────────────────────────────────
+  # Compiles the app for the simulator. Runs generate first.
+  lane :build do
+    generate
+    xcodebuild(
+      workspace: WORKSPACE,
+      scheme: SCHEME,
+      destination: SIMULATOR,
+      build_settings: { "CODE_SIGN_IDENTITY" => "", "CODE_SIGNING_REQUIRED" => "NO" }
+    )
+  end
+
+  # ── Test ──────────────────────────────────────────────────────
+  # Runs the full XCTest suite. Output is formatted via xcpretty.
+  # Usage: fastlane test
+  lane :test do
+    generate
+    scan(
+      workspace: WORKSPACE,
+      scheme: TEST_SCHEME,
+      destination: SIMULATOR,
+      output_files: "test-results.xml",
+      output_directory: "fastlane/test_output",
+      clean: false
+    )
+  end
+
+  # ── Archive ───────────────────────────────────────────────────
+  # Produces an ad-hoc IPA for distribution or sharing.
+  # Requires a provisioning profile to be configured.
+  lane :archive do
+    generate
+    gym(
+      workspace: WORKSPACE,
+      scheme: SCHEME,
+      export_method: "ad-hoc",
+      output_directory: "fastlane/build",
+      output_name: "POSCoreDemo.ipa",
+      clean: true
+    )
+    UI.success "IPA saved to fastlane/build/POSCoreDemo.ipa"
+  end
+
+end
