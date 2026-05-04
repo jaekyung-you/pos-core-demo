@@ -30,10 +30,16 @@ let project = Project(
                     "UIColorName": "",
                     "UIImageName": "",
                 ],
-                "UISupportedInterfaceOrientations~ipad": [
+                "UISupportedInterfaceOrientations": [
+                    "UIInterfaceOrientationPortrait",
                     "UIInterfaceOrientationLandscapeLeft",
                     "UIInterfaceOrientationLandscapeRight",
+                ],
+                "UISupportedInterfaceOrientations~ipad": [
                     "UIInterfaceOrientationPortrait",
+                    "UIInterfaceOrientationPortraitUpsideDown",
+                    "UIInterfaceOrientationLandscapeLeft",
+                    "UIInterfaceOrientationLandscapeRight",
                 ],
             ]),
             sources: ["App/Sources/**"],
